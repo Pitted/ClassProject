@@ -32,7 +32,7 @@ public class Driver {
 				ChronoTimer.powerOff();
 			else if(strAr[0].equals("START"))
 				ChronoTimer.start();
-			else if(strAt[0].equals("FIN"))
+			else if(strAr[0].equals("FIN"))
 				ChronoTimer.finish();
 			else if(strAr[0].equals("DNF"))
 				ChronoTimer.dnf();
@@ -59,7 +59,7 @@ public class Driver {
 		//CONN
 		else if(strAr.length==3){
 			if(strAr[0].equals("CONN"))
-				ChronoTimer.addChanel(strAr[1], Integer.parseInt(strAr[2]));
+				ChronoTimer.connectChanel(strAr[1], Integer.parseInt(strAr[2]));
 			else
 				throw new IllegalArgumentException();
 		}
