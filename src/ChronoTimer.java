@@ -125,11 +125,11 @@ public class ChronoTimer {
     public void print()
     {
     	System.out.println("Run /t BIB /t TIME")
-    	for (Competitior c : completedRacershannels) {
+    	for (Competitior c : completedRacers) {
     		if(!c.isDNF())
-    			System.out.println("1 /t" + c.getNumber"/t" + c.getTime());
+    			System.out.println("1 /t" + c.getNumber + "/t" + c.getTime());
     		else
-    			System.out.println("1 /t" + c.getNumber"/t" + "DNF");
+    			System.out.println("1 /t" + c.getNumber + "/t" + "DNF");
 		}
     	
     }*/
