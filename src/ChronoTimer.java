@@ -1,5 +1,5 @@
 
-import java.nio.channels.Channel;
+//import java.nio.channels.Channel;
 import java.util.*;
 public class ChronoTimer {
 
@@ -94,37 +94,37 @@ public class ChronoTimer {
 	public static void finish()
 	{
 		if(!power) throw new IllegalStateException();
-		if(toFinish.peek == null) throw new IllegalStateException();
+		if(toFinish.peek() == null) throw new IllegalStateException();
 
 
-		completedRacers.add(toFinish.remove().setFinishTime(Time.getCurrentTime()));
+		//completedRacers.add(toFinish.remove().setFinishTime(Time.getCurrentTime()));
 
-		//		Competitor c = toFinish.remove();
-		//		c.setFinishTime(Time.getCurrentTime());
-		//		completedRacers.add(c);
+				Competitor c = toFinish.remove();
+				c.setFinishTime(Time.getCurrentTime());
+				completedRacers.add(c);
 
 	}
 
 	public static void dnf()
 	{
 		if(!power) throw new IllegalStateException();
-		if(toFinish.peek == null) throw new IllegalStateException();
+		if(toFinish.peek() == null) throw new IllegalStateException();
 
-		completedRacers.add(toFinish.remove().setFinishTime(null));
-		//		Competitor c = toFinish.remove();
-		//		c.setFinishTime(null); //maybe add "did not finish" variable in competitor? TODO TODO TODO
-		//		completedRacers.add(c);
+		//completedRacers.add(toFinish.remove().setFinishTime(-1));
+				Competitor c = toFinish.remove();
+				c.setFinishTime(-1); //maybe add "did not finish" variable in competitor? TODO TODO TODO
+				completedRacers.add(c);
 	}
 
 	public static void cancel()
 	{
 		if(!power) throw new IllegalStateException();
-		if(toFinish.peek == null) throw new IllegalStateException();
+		if(toFinish.peek() == null) throw new IllegalStateException();
 		
-		toStart.set(0,toFinish.remove().setStartTime(0));
-//		Competitor c = toFinish.remove();   
-//		c.setStartTime(0.0);  //clear the start time
-//		toStart.set(0, c);   //adds the canceled racer back to the head of toStart so they can redo the start.
+		//toStart.set(0,toFinish.remove().setStartTime(0));
+		Competitor c = toFinish.remove();   
+		c.setStartTime(0.0);  //clear the start time
+		toStart.set(0, c);   //adds the canceled racer back to the head of toStart so they can redo the start.
 
 	}
 	
@@ -135,9 +135,9 @@ public class ChronoTimer {
 		System.out.println("Run /t BIB /t TIME");
 		for (Competitor c : completedRacers) {
 			if(!c.isDNF())
-				System.out.println("1 /t" + c.getNumber + "/t" + c.getTime());
+				System.out.println("1 /t" + c.getNumber() + "/t" + c.calculateTotalTime());
 			else
-				System.out.println("1 /t" + c.getNumber + "/t" + "DNF");
+				System.out.println("1 /t" + c.getNumber() + "/t" + "DNF");
 		}
 
 	}
