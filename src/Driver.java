@@ -51,7 +51,7 @@ public class Driver {
 			else if(strAr[0].equals("NUM"))
 				ChronoTimer.addCompetitor(new Competitor(Integer.parseInt(strAr[1])));
 
-			if(strAr[0].equals("TIME"))
+			else if(strAr[0].equals("TIME"))
 				Time.setStartTime(Time.fromString(strAr[1]));
 			else
 				throw new IllegalArgumentException();

@@ -4,10 +4,10 @@ import java.util.*;
 public class ChronoTimer {
 
 	private static boolean power;   //true = on, false = off
-	private static Channel [] channels = {new Channel(0), new Channel(1)};  //2 channels for first sprint, initialized to 8 disarmed channels	
-	private static ArrayList<Competitor> toStart;  //the racers who have not yet started
-	private static Queue<Competitor> toFinish;   //the racers who have started but not finished yet
-	private static ArrayList<Competitor> completedRacers;   //racers who have finished   
+	private static Channel [] channels = {new Channel(1), new Channel(2)};  //2 channels for first sprint, initialized to 8 disarmed channels	
+	private static ArrayList<Competitor> toStart = new ArrayList<Competitor>();  //the racers who have not yet started
+	private static Queue<Competitor> toFinish  = new LinkedList<Competitor>();   //the racers who have started but not finished yet
+	private static ArrayList<Competitor> completedRacers = new ArrayList<Competitor>();   //racers who have finished   
 	//private static Time time;  //used for recording the system time at any given moment in time
 
 
@@ -47,17 +47,17 @@ public class ChronoTimer {
 
 	public static void armChannel(int index)
 	{
-		if(index>=channels.length) throw new IllegalArgumentException();
-		if(channels[index] == null) throw new IllegalArgumentException();
-		channels[index].arm();
+		if(index>channels.length) throw new IllegalArgumentException();
+		if(channels[index-1] == null) throw new IllegalArgumentException();
+		channels[index-1].arm();
 
 	}
 
 	public static void disarmChannel(int index)
 	{
-		if(index>=channels.length) throw new IllegalArgumentException();
-		if(channels[index] == null) throw new IllegalArgumentException();
-		channels[index].disArm();
+		if(index>channels.length) throw new IllegalArgumentException();
+		if(channels[index-1] == null) throw new IllegalArgumentException();
+		channels[index-1].disArm();
 	}
 
 	public static void disarmAll()
@@ -76,7 +76,7 @@ public class ChronoTimer {
 	public static void addCompetitor(Competitor c)
 	{
 		if(!power) throw new IllegalStateException();
-		if(toStart.contains(c)) throw new IllegalArgumentException();
+		if(toStart != null && toStart.contains(c)) throw new IllegalArgumentException();
 		toStart.add(c);    	   	
 	}
 
@@ -132,12 +132,13 @@ public class ChronoTimer {
 	public static void print()
 	{
 		if(!power) throw new IllegalStateException();
-		System.out.println("Run /t BIB /t TIME");
+		System.out.println("Run \t BIB \t TIME");
 		for (Competitor c : completedRacers) {
+			System.out.println(c.getNumber() + ": " + c.getStartTime());
 			if(!c.isDNF())
-				System.out.println("1 /t" + c.getNumber() + "/t" + c.calculateTotalTime());
+				System.out.println("1 \t" + c.getNumber() + "\t" + c.calculateTotalTime());
 			else
-				System.out.println("1 /t" + c.getNumber() + "/t" + "DNF");
+				System.out.println("1 \t" + c.getNumber() + "\t" + "DNF");
 		}
 
 	}
