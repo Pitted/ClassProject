@@ -99,9 +99,9 @@ public class ChronoTimer {
 
 		//completedRacers.add(toFinish.remove().setFinishTime(Time.getCurrentTime()));
 
-				Competitor c = toFinish.remove();
-				c.setFinishTime(Time.getCurrentTime());
-				completedRacers.add(c);
+		Competitor c = toFinish.remove();
+		c.setFinishTime(Time.getCurrentTime());
+		completedRacers.add(c);
 
 	}
 
@@ -111,24 +111,45 @@ public class ChronoTimer {
 		if(toFinish.peek() == null) throw new IllegalStateException();
 
 		//completedRacers.add(toFinish.remove().setFinishTime(-1));
-				Competitor c = toFinish.remove();
-				c.setFinishTime(-1); //maybe add "did not finish" variable in competitor? TODO TODO TODO
-				completedRacers.add(c);
+		Competitor c = toFinish.remove();
+		c.setFinishTime(-1); //maybe add "did not finish" variable in competitor? TODO TODO TODO
+		completedRacers.add(c);
 	}
 
 	public static void cancel()
 	{
 		if(!power) throw new IllegalStateException();
 		if(toFinish.peek() == null) throw new IllegalStateException();
-		
+
 		//toStart.set(0,toFinish.remove().setStartTime(0));
 		Competitor c = toFinish.remove();   
 		c.setStartTime(0.0);  //clear the start time
 		toStart.set(0, c);   //adds the canceled racer back to the head of toStart so they can redo the start.
 
 	}
-	
 
+	public Competitor getCompetitor(int bibNumber)
+	{
+		for(Competitor c : toStart)
+		{
+			if(bibNumber == c.getNumber())
+				return c;
+		}
+
+		for(Competitor c : toFinish)
+		{
+			if(bibNumber == c.getNumber())
+				return c;
+		}
+
+		for(Competitor c : completedRacers)
+		{
+			if(bibNumber == c.getNumber())
+				return c;
+		}
+
+		return null;
+	}
 	public static void print()
 	{
 		if(!power) throw new IllegalStateException();
