@@ -41,8 +41,8 @@ public class ChronoTimer {
 
 	public static void connectChannel(String type, int index)   // we don't need this, all 8 channels are connected by default
 	{
-		if(index>=channels.length) throw new IllegalArgumentException();
-		channels[index].connectSensor(new Sensor(type));
+		if(index>channels.length||index<1) throw new IllegalArgumentException();
+		channels[index-1].connectSensor(new Sensor(type));
 	}
 
 	public static void armChannel(int index)

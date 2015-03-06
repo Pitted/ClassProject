@@ -40,12 +40,15 @@ public class Channel {
 		sens.disConnectChannel();
 		sens = null ; 		
 	}
+	public int getType(){
+		return type;
+	}
 
 	/**
 	 * takes a snapshot of the current time and returns it to the system.
 	 * @return time in seconds 
 	 */
-	public double getSystemTime (){
+	public double channelTrigger(){
 		if (!isArmed) throw new IllegalStateException ("Channel disarmed");
 		return trigger = Time.getCurrentTime ();
 	}
