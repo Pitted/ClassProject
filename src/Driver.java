@@ -59,7 +59,7 @@ public class Driver {
 		//CONN
 		else if(strAr.length==3){
 			if(strAr[0].equals("CONN"))
-				ChronoTimer.connectChanel(strAr[1], Integer.parseInt(strAr[2]));
+				ChronoTimer.connectChannel(strAr[1], Integer.parseInt(strAr[2]));
 			else
 				throw new IllegalArgumentException();
 		}

@@ -4,11 +4,11 @@ import java.util.*;
 public class ChronoTimer {
 
 	private static boolean power;   //true = on, false = off
-	private static Channel [] channels = new Channel[2];   //2 channels for first sprint, initialized to 8 disarmed channels	
+	private static Channel [] channels = {new Channel(0), new Channel(1)};  //2 channels for first sprint, initialized to 8 disarmed channels	
 	private static ArrayList<Competitor> toStart;  //the racers who have not yet started
 	private static Queue<Competitor> toFinish;   //the racers who have started but not finished yet
 	private static ArrayList<Competitor> completedRacers;   //racers who have finished   
-	private static Time time;  //used for recording the system time at any given moment in time
+	//private static Time time;  //used for recording the system time at any given moment in time
 
 
 	public static void powerOn()
@@ -42,7 +42,7 @@ public class ChronoTimer {
 	public static void connectChannel(String type, int index)   // we don't need this, all 8 channels are connected by default
 	{
 		if(index>=channels.length) throw new IllegalArgumentException();
-		channels[index] = new Channel(type, index);
+		channels[index].connectSensor(new Sensor(type));
 	}
 
 	public static void armChannel(int index)
@@ -57,7 +57,7 @@ public class ChronoTimer {
 	{
 		if(index>=channels.length) throw new IllegalArgumentException();
 		if(channels[index] == null) throw new IllegalArgumentException();
-		channels[index].disarm();
+		channels[index].disArm();
 	}
 
 	public static void disarmAll()
@@ -67,7 +67,7 @@ public class ChronoTimer {
 		for (Channel ch : channels){
 			if(ch == null);
 			else
-				ch.disarm();
+				ch.disArm();
 		}
 
 	}
